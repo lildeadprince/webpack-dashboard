@@ -5,6 +5,7 @@
  */
 const { relative, resolve, sep } = require("path");
 const filesize = require("filesize");
+const inspectpack = require("inspectpack/lib/actions/base");
 
 const PERCENT_MULTIPLIER = 100;
 const PERCENT_PRECISION = 3;
@@ -17,7 +18,8 @@ function _formatFileName(mod) {
 
   // Source file.
   if (!baseName) {
-    return `{green-fg}.${sep}${relative(process.cwd(), resolve(fileName))}{/}`;
+    const normalizedFileName = inspectpack._normalizeWebpackPath(fileName);
+    return `{green-fg}.${sep}${relative(process.cwd(), resolve(normalizedFileName))}{/}`;
   }
 
   // Package
